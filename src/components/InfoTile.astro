@@ -1,0 +1,26 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  tone?: 'emerald' | 'blue' | 'purple';
+}
+
+const { icon, title, description, tone = 'emerald' } = Astro.props;
+
+const toneClasses = {
+  emerald: 'bg-emerald-50 text-emerald-600',
+  blue: 'bg-blue-50 text-blue-600',
+  purple: 'bg-purple-50 text-purple-600'
+}[tone];
+---
+
+<div class="bg-white rounded-lg p-6 shadow-sm border border-slate-50 flex items-center gap-6 group hover:bg-slate-50 transition-colors">
+  <div class={`w-12 h-12 rounded flex items-center justify-center ${toneClasses}`}>
+    <span class="material-symbols-outlined">{icon}</span>
+  </div>
+  <div class="flex-1">
+    <h4 class="font-bold text-slate-800">{title}</h4>
+    <p class="text-xs text-slate-500">{description}</p>
+  </div>
+</div>

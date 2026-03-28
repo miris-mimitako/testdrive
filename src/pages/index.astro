@@ -1,0 +1,20 @@
+---
+import HomeHeader from '../components/HomeHeader.astro';
+import HomeOverview from '../components/HomeOverview.astro';
+import HomeSidebar from '../components/HomeSidebar.astro';
+import HomeWorkflow from '../components/HomeWorkflow.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="testdrive - ホーム">
+  <HomeSidebar />
+
+  <main class="ml-64 flex-1 min-h-screen bg-surface relative">
+    <HomeHeader />
+
+    <div class="p-8 max-w-7xl mx-auto">
+      <HomeOverview />
+      <HomeWorkflow />
+    </div>
+  </main>
+</BaseLayout>

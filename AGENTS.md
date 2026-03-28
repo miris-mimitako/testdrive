@@ -1,9 +1,9 @@
 # testdrive Agent Guide
 
-この `testdrive` リポジトリは、**UI 試作と設計メモの置き場**として使う前提の最小構成リポジトリです。  
-**2026-03-28 時点ではアプリ本体（Astro / NestJS / package.json / src / tests）はまだ存在しません。**
+この `testdrive` リポジトリは、**UI 試作と設計メモを起点に、Astro ベースの画面へ育てていくためのリポジトリ**です。  
+**2026-03-28 時点では Astro 実行環境は導入済みですが、NestJS 本体は未導入です。**
 
-そのため、エージェントは **「実装済みアプリを前提にした作業」ではなく、「現存ファイルに対する安全な更新」** を優先します。
+そのため、エージェントは **「Astro の画面実装は進めてよいが、バックエンド実装済み前提では進めない」** ことを守ります。
 
 ---
 
@@ -12,6 +12,19 @@
 ```text
 .
 ├── AGENTS.md
+├── astro.config.mjs
+├── index.html
+├── package.json
+├── src/
+│   ├── components/
+│   │   ├── HomeHeader.astro
+│   │   ├── HomeOverview.astro
+│   │   ├── HomeSidebar.astro
+│   │   └── HomeWorkflow.astro
+│   ├── layouts/
+│   │   └── BaseLayout.astro
+│   └── pages/
+│       └── index.astro
 └── _docs/
     └── ui_design_sample/
         └── dashboard.html
@@ -19,94 +32,126 @@
 
 ### 各ファイルの役割
 
-- `AGENTS.md`
-  - このリポジトリで作業するエージェント向けの運用ルール。
+- `index.html`
+  - もともとの静的トップページ。
+  - UI 見本・比較対象として残している。
+- `src/pages/index.astro`
+  - 現在の `/` ページ本体。
+- `src/layouts/BaseLayout.astro`
+  - 共通レイアウト。
+- `src/components/*.astro`
+  - ホーム画面の分割済み UI コンポーネント。
 - `_docs/ui_design_sample/dashboard.html`
-  - ダッシュボード UI の静的サンプル。
-  - 現時点では Tailwind CDN を利用した単独 HTML であり、Astro コンポーネントや NestJS API とは接続されていません。
+  - 元の UI デザインサンプル。
+- `package.json`
+  - Astro 実行用スクリプトと依存関係を定義。
+- `astro.config.mjs`
+  - Astro 設定ファイル。
+- `src/styles/global.css`
+  - 公式の Astro + Tailwind 構成で使うグローバルスタイル。
 
 ---
 
 ## 最優先ルール
 
 - **実在するファイルとディレクトリだけを前提に作業すること。**
-- 存在しない `src/`, `apps/`, `packages/`, `tests/`, `package.json` などを前提に説明しないこと。
-- 現時点では **UI サンプル中心のリポジトリ** なので、バックエンド実装済み前提の修正は行わないこと。
+- 存在しない `apps/`, `packages/`, `tests/` などを前提に説明しないこと。
+- **フロントエンドは Astro 中心で進めてよい。**
+- **NestJS / API / DB は未導入** なので、バックエンド実装済み前提の修正は行わないこと。
 - 大きな構成変更を行う場合は、**現在の最小構成を壊さず、意図が分かる形で追加**すること。
-- 古い AGENTS.md にあった他リポジトリ連携、UL YAML、Issue orchestration、TODO.yaml 運用などは、**このリポジトリには現状存在しないため適用しないこと。**
+- 元サンプル `_docs/ui_design_sample/dashboard.html` は、無言で削除しないこと。
 
 ---
 
 ## このリポジトリで許可される主な作業
 
-- `dashboard.html` の文言、レイアウト、配色、セクション構成の調整
-- `_docs/` 配下への設計メモ、画面メモ、移行メモの追加
-- 将来の Astro / NestJS 化を見据えた **非破壊の提案** や雛形追加
+- `src/pages/index.astro` の改善
+- `src/components/` / `src/layouts/` への分割・整理
+- `index.html` の見本更新
+- `_docs/` 配下への設計メモ、移行メモの追加
+- 将来の NestJS 導入を見据えた **非破壊の提案** や雛形追加
 - AGENTS.md の更新
 
 ## 現時点で慎重に扱う作業
 
-- フレームワーク導入（Astro / NestJS / pnpm workspace など）
+- NestJS 導入
+- API / DB / 認証前提の実装追加
 - ディレクトリ大再編
-- サンプル HTML の全面置換
-
-これらを行う場合は、**今ある `_docs/ui_design_sample/dashboard.html` を参照可能な状態で残す**か、移行理由を明記します。
+- 元サンプルの全面置換や削除
 
 ---
 
-## `dashboard.html` 編集ルール
+## Astro 作業ルール
 
-- まずこのファイルを **UI モック / デザインサンプル** として扱うこと。
-- いきなりフレームワーク記法へ変換せず、必要があれば **移行前の静的見本** として維持すること。
-- CDN 依存（Tailwind CDN / Google Fonts）があるため、変更時は **単体 HTML として表示が崩れないこと** を優先すること。
-- 役割が分かるように、必要ならセクションコメントを追加してよい。
-- 画像 URL や外部 CDN を差し替える場合は、**サンプル用途として妥当か** を確認すること。
+- `/` は原則 `src/pages/index.astro` を正本として扱う。
+- 画面が大きくなったら `src/components/` へ分割する。
+- 共通 head / style は `src/layouts/BaseLayout.astro` に寄せる。
+- まず見た目を整え、その後必要ならロジックを追加する。
+- Tailwind は **公式の Astro + Tailwind 構成** を使う。色やトークンは `src/styles/global.css` で管理する。
+
+### 開発コマンド
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+```
 
 ---
 
-## 将来 Astro / NestJS を導入する場合の扱い
+## `index.html` の扱い
+
+- `index.html` は旧静的版の見本として維持してよい。
+- Astro 版との差分確認に使ってよい。
+- ただし、現在の `/` 実装の中心は `src/pages/index.astro` とする。
+- 新しい UI 調整は、原則 Astro 側を先に更新する。
+
+---
+
+## 将来 NestJS を導入する場合の扱い
 
 ユーザーが今後このリポジトリを Astro / NestJS 構成へ発展させる可能性はあります。  
-ただし、**導入済みであると決め打ちしてはいけません。**
+ただし、**NestJS はまだ導入済みであると決め打ちしてはいけません。**
 
 導入するまでは以下の姿勢を守ります。
 
-- Astro: 「将来 UI を載せる候補」
-- NestJS: 「将来 API / application / domain を載せる候補」
-- 現在: **まだ静的資料段階**
+- Astro: **導入済みの UI 基盤**
+- NestJS: **将来 API / application / domain を載せる候補**
+- 現在: **Astro フロント + 静的資料段階**
 
-将来フレームワークを追加したら、AGENTS.md も必ず更新し、実際の構成を反映します。
+将来バックエンドや API を追加したら、AGENTS.md も必ず更新し、実際の構成を反映します。
 
 ---
 
 ## 推奨する進め方
 
-1. 現在のファイル構成を確認する
-2. 変更対象が `_docs/` の静的資料なのか、構成追加なのかを切り分ける
-3. 小さく更新する
-4. 必要なら AGENTS.md に新構成を反映する
+1. `src/pages/index.astro` を確認する
+2. 必要なら `src/components/` を編集する
+3. `npm run dev` で表示確認する
+4. 構成変更したら AGENTS.md を更新する
 
 ---
 
 ## コミット・変更方針
 
 - 1 変更 1 意図を基本にします。
-- サンプル UI 修正と構成変更は、可能ならコミット意図を分けられる粒度で作業します。
+- 画面修正と構成変更は、可能ならコミット意図を分けられる粒度で作業します。
 - 不要な自動整形や無関係な文言修正を混ぜないこと。
 
 例:
 
 ```text
-docs: dashboard sample の見出しとカード文言を調整
-chore: Astro/NestJS 移行用のディレクトリ方針メモを追加
-docs: AGENTS.md を現行構成に合わせて更新
+feat: add astro home page scaffold
+refactor: split home page into layout and components
+docs: update AGENTS.md for astro-based structure
 ```
 
 ---
 
 ## エージェント向け補足
 
-- このリポジトリは **まだアプリケーション本体ではない** 可能性が高いです。
-- そのため、まずは **現物のファイル構成を観察してから** 作業してください。
-- 過去の AGENTS.md に引きずられず、**現在存在するファイルに基づいて判断**してください。
-- 新しいトップレベル構成を追加した場合は、**この AGENTS.md の「現在のリポジトリ構成」を更新**してください。
+- 現在の `/` は **Astro で表示確認可能**です。
+- 旧静的版 `index.html` と元サンプル `_docs/ui_design_sample/dashboard.html` は比較用に残っています。
+- まずは Astro 側を正本として改善してください。
+- 新しいトップレベル構成や backend を追加した場合は、**この AGENTS.md の「現在のリポジトリ構成」を更新**してください。

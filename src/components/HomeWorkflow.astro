@@ -1,0 +1,55 @@
+---
+import UpdateItem from './UpdateItem.astro';
+---
+
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="lg:col-span-2" id="workflow">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-lg font-bold text-on-surface">進め方</h3>
+      <button class="text-xs font-bold text-primary uppercase tracking-widest">STEP</button>
+    </div>
+    <div class="bg-surface-container-low rounded-lg p-1">
+      <div class="bg-white rounded-md p-6 overflow-hidden relative">
+        <div class="grid sm:grid-cols-3 gap-6 mb-8">
+          <div>
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Step 1</p>
+            <p class="text-2xl font-black text-slate-800">静的 /</p>
+            <p class="text-sm text-slate-500 mt-2">index.html を見た目の基準にする</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Step 2</p>
+            <p class="text-2xl font-black text-slate-800">文言整理</p>
+            <p class="text-sm text-slate-500 mt-2">日本語化して testdrive 向けに寄せる</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Step 3</p>
+            <p class="text-2xl font-black text-emerald-600">Astro 雛形</p>
+            <p class="text-sm text-slate-500 mt-2">同じ内容を src/pages/index.astro に移す</p>
+          </div>
+        </div>
+        <div class="h-32 flex items-end gap-2 px-2">
+          <div class="flex-1 bg-primary/10 h-2/5 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-1/2 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-3/5 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-4/5 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary h-full rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-5/6 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-3/4 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-2/3 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-1/2 rounded-t-sm"></div>
+          <div class="flex-1 bg-primary/10 h-2/5 rounded-t-sm"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="migration">
+    <h3 class="text-lg font-bold text-on-surface mb-6">最近の更新</h3>
+    <div class="space-y-4">
+      <UpdateItem icon="translate" title="ホーム画面を日本語化" description="英語 UI サンプルを現行リポジトリ向けに調整しました。" time="just now" tone="slate" />
+      <UpdateItem icon="construction" title="Astro 用ページを追加" description="`src/pages/index.astro` を作成し、移植の土台を用意しました。" time="this task" tone="amber" />
+      <UpdateItem icon="inventory_2" title="元サンプルを維持" description="`_docs/ui_design_sample/dashboard.html` は参照用としてそのまま残しています。" time="safe migration" tone="emerald" />
+    </div>
+    <button class="w-full mt-6 py-3 border border-dashed border-slate-200 text-slate-400 text-xs font-bold uppercase tracking-widest hover:border-slate-300 hover:text-slate-500 transition-all rounded-lg">次は Astro 環境を導入</button>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  time: string;
+  tone?: 'slate' | 'amber' | 'emerald';
+}
+
+const { icon, title, description, time, tone = 'slate' } = Astro.props;
+
+const toneClasses = {
+  slate: 'bg-slate-100 text-slate-600',
+  amber: 'bg-amber-50 text-amber-600',
+  emerald: 'bg-emerald-50 text-emerald-600'
+}[tone];
+---
+
+<div class="flex gap-4 items-start p-4 bg-white rounded-lg shadow-sm border border-slate-50">
+  <div class={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${toneClasses}`}>
+    <span class="material-symbols-outlined text-sm">{icon}</span>
+  </div>
+  <div>
+    <p class="text-sm font-bold text-on-surface">{title}</p>
+    <p class="text-xs text-on-surface-variant mb-2">{description}</p>
+    <span class="text-[10px] font-bold text-on-surface-variant/40 uppercase">{time}</span>
+  </div>
+</div>
