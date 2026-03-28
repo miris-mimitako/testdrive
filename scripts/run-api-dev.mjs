@@ -4,7 +4,7 @@ const child = spawn('npm', ['--prefix', 'api', 'run', 'start:dev'], {
   stdio: 'inherit',
   env: {
     ...process.env,
-    PORT: '3001',
+    PORT: '3200',
   },
   shell: false,
 });

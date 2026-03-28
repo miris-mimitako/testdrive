@@ -1,5 +1,18 @@
 ---
+import ApiHealthCard from './ApiHealthCard.astro';
 import InfoTile from './InfoTile.astro';
+
+interface Props {
+  apiHealth: {
+    endpoint: string;
+    status: string;
+    timestamp: string;
+    message: string;
+    ok: boolean;
+  };
+}
+
+const { apiHealth } = Astro.props;
 ---
 
 <section>
@@ -11,7 +24,7 @@ import InfoTile from './InfoTile.astro';
     <div class="flex gap-3">
       <div class="px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-100 flex items-center gap-2">
         <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-        <span class="text-xs font-bold text-on-surface-variant">STATIC SAMPLE READY</span>
+        <span class="text-xs font-bold text-on-surface-variant">FULLSTACK PROTOTYPE READY</span>
       </div>
     </div>
   </div>
@@ -25,31 +38,19 @@ import InfoTile from './InfoTile.astro';
         <span class="material-symbols-outlined text-on-surface-variant/20 group-hover:text-primary transition-colors">north_east</span>
       </div>
       <div>
-        <h3 class="text-xl font-bold text-on-surface mb-2">まずは / の画面を固める</h3>
-        <p class="text-on-surface-variant leading-relaxed max-w-md">`_docs/ui_design_sample/dashboard.html` をベースに、今のリポジトリに合う日本語ホーム画面を整備します。</p>
+        <h3 class="text-xl font-bold text-on-surface mb-2">Astro + NestJS の土台を確認する</h3>
+        <p class="text-on-surface-variant leading-relaxed max-w-md">Astro のホーム画面から NestJS の `/api/health` を実際に表示し、フロントと API の疎通を確認できる状態にしました。</p>
         <div class="mt-6 flex items-center gap-4 flex-wrap">
-          <button class="bg-primary text-white px-6 py-2.5 rounded font-bold text-sm tracking-wide">index.html を確認</button>
-          <span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest opacity-60">静的ページから開始</span>
+          <button class="bg-primary text-white px-6 py-2.5 rounded font-bold text-sm tracking-wide">npm run start</button>
+          <span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest opacity-60">固定ポートで同時起動</span>
         </div>
       </div>
     </div>
 
-    <div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_12px_32px_rgba(42,52,57,0.04)] flex flex-col justify-between hover:shadow-[0px_12px_48px_rgba(42,52,57,0.08)] transition-all duration-300">
-      <div class="w-12 h-12 bg-secondary-container rounded-xl flex items-center justify-center text-secondary mb-6">
-        <span class="material-symbols-outlined text-2xl">folder_open</span>
-      </div>
-      <div>
-        <h3 class="text-lg font-bold text-on-surface mb-2">現在の構成</h3>
-        <p class="text-sm text-on-surface-variant leading-relaxed mb-6">AGENTS.md、静的トップページ、UI サンプル docs を中心に管理しています。</p>
-        <a class="text-primary text-sm font-extrabold uppercase tracking-widest flex items-center gap-2 group" href="#workflow">
-          作業方針を見る
-          <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
-        </a>
-      </div>
-    </div>
+    <ApiHealthCard {...apiHealth} />
 
     <InfoTile icon="draw" title="UI サンプル調整" description="日本語化と文言の最適化" tone="emerald" />
     <InfoTile icon="description" title="設計メモ整理" description="docs と AGENTS の整合を維持" tone="blue" />
-    <InfoTile icon="rocket_launch" title="Astro への移植" description="src/pages/index.astro を追加済み" tone="purple" />
+    <InfoTile icon="rocket_launch" title="API 疎通確認" description="Astro から /api/health を表示" tone="purple" />
   </div>
 </section>

@@ -38,6 +38,7 @@
 - `api/`
   - NestJS API。
   - 現在は `/api` と `/api/health` の最低限の疎通確認エンドポイントを持つ。
+  - 開発ポートは `3200`。
 - `index.html`
   - 旧静的版の見本。
 - `_docs/ui_design_sample/dashboard.html`
@@ -104,8 +105,9 @@ npm run preview
 - 疎通確認エンドポイント:
   - `GET /api`
   - `GET /api/health`
-- 開発ポートは **Astro: `4321` / NestJS: `3001`** に固定する。
+- 開発ポートは **Astro: `4400` / NestJS: `3200`** に固定する。
 - 起動前にポート使用状況をチェックし、競合時は分かりやすいエラーを返す。
+- 現在の固定ポートは **Astro: `4400` / NestJS: `3100`**。
 - CORS は Astro 側ローカル開発ポートを許可している。
 - DTO を追加する場合は ValidationPipe 前提で設計する。
 

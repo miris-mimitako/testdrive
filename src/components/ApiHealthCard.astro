@@ -1,0 +1,41 @@
+---
+interface Props {
+  endpoint: string;
+  status: string;
+  timestamp: string;
+  message: string;
+  ok: boolean;
+}
+
+const { endpoint, status, timestamp, message, ok } = Astro.props;
+const badgeClass = ok
+  ? 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700'
+  : 'px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700';
+---
+
+<div class="bg-white rounded-lg p-6 shadow-sm border border-slate-50">
+  <div class="flex items-center justify-between gap-4 mb-4">
+    <div>
+      <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">API Health</p>
+      <h3 class="text-lg font-bold text-on-surface">NestJS 接続状態</h3>
+    </div>
+    <div class={badgeClass}>{ok ? '接続OK' : '接続失敗'}</div>
+  </div>
+
+  <dl class="space-y-3 text-sm">
+    <div class="flex justify-between gap-4">
+      <dt class="text-on-surface-variant">エンドポイント</dt>
+      <dd class="font-mono text-xs text-slate-700">{endpoint}</dd>
+    </div>
+    <div class="flex justify-between gap-4">
+      <dt class="text-on-surface-variant">ステータス</dt>
+      <dd class="font-semibold text-slate-700">{status}</dd>
+    </div>
+    <div class="flex justify-between gap-4">
+      <dt class="text-on-surface-variant">更新時刻</dt>
+      <dd class="font-mono text-xs text-slate-700">{timestamp}</dd>
+    </div>
+  </dl>
+
+  <p class="mt-4 text-xs text-on-surface-variant">{message}</p>
+</div>

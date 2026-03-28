@@ -4,6 +4,37 @@ import HomeOverview from '../components/HomeOverview.astro';
 import HomeSidebar from '../components/HomeSidebar.astro';
 import HomeWorkflow from '../components/HomeWorkflow.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const endpoint = 'http://127.0.0.1:3200/api/health';
+
+let apiHealth = {
+  endpoint: '/api/health',
+  status: 'unreachable',
+  timestamp: '-',
+  message: 'NestJS API に接続できていません。`npm run start` で同時起動してください。',
+  ok: false,
+};
+
+try {
+  const response = await fetch(endpoint);
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  apiHealth = {
+    endpoint: '/api/health',
+    status: data.status ?? 'ok',
+    timestamp: data.timestamp ?? '-',
+    message: 'NestJS API との疎通確認に成功しました。',
+    ok: true,
+  };
+} catch (error) {
+  apiHealth = {
+    ...apiHealth,
+    message: `NestJS API に接続できませんでした: ${error instanceof Error ? error.message : 'unknown error'}`,
+  };
+}
 ---
 
 <BaseLayout title="testdrive - ホーム">
@@ -13,7 +44,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <HomeHeader />
 
     <div class="p-8 max-w-7xl mx-auto">
-      <HomeOverview />
+      <HomeOverview apiHealth={apiHealth} />
       <HomeWorkflow />
     </div>
   </main>
