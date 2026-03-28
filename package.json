@@ -4,14 +4,28 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "astro dev --host 127.0.0.1 --port 4321",
+    "dev:api": "node scripts/run-api-dev.mjs",
+    "predev:all": "node scripts/check-ports.mjs 4321 3001",
+    "dev:all": "concurrently -n web,api -c blue,green \"npm run dev\" \"npm run dev:api\"",
+    "start:web": "astro dev --host 127.0.0.1 --port 4321",
+    "start:api": "node scripts/run-api-dev.mjs",
+    "prestart": "node scripts/check-ports.mjs 4321 3001",
+    "start": "concurrently -n web,api -c blue,green \"npm run start:web\" \"npm run start:api\"",
     "build": "astro build",
+    "build:api": "npm --prefix api run build",
+    "build:all": "npm run build && npm run build:api",
+    "test:api": "npm --prefix api test -- --runInBand",
+    "test:e2e": "npm --prefix api run test:e2e -- --runInBand",
+    "test:all": "npm run test:api && npm run test:e2e",
     "preview": "astro preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.1",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
