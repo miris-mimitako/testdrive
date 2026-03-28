@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Triage"
+  short_description: "現行 repo 向けに依頼を分類する"
+  default_prompt: "Use $issue-triage to classify this request for the current minimal testdrive repository and recommend the smallest safe execution track."

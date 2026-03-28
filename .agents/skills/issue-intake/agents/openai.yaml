@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Intake"
+  short_description: "依頼を現行 repo 向け Issue 文面に整える"
+  default_prompt: "Use $issue-intake to turn this request into a GitHub issue that matches the current minimal testdrive repository structure."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue High Risk"
+  short_description: "高リスクな構成変更を安全に扱う"
+  default_prompt: "Use $issue-high-risk for destructive-seeming repo changes such as framework introduction, major restructuring, or replacing the current static UI sample."

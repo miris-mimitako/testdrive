@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Spec Impl"
+  short_description: "資料・構成方針の仕様変更を進める"
+  default_prompt: "Use $issue-spec-impl to update the relevant docs, UI sample, and AGENTS guidance for this repository without assuming an implemented app backend."

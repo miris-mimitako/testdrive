@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Logging Investigation"
+  short_description: "現状ではログ設計メモ用途に限定"
+  default_prompt: "Use $issue-logging-investigation only to draft logging/error-handling notes for a future app structure; do not assume runtime logging already exists in this repo."

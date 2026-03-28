@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue OpenAPI Audit"
+  short_description: "現状では API 契約メモ整理に限定"
+  default_prompt: "Use $issue-openapi-audit only to prepare draft API notes for future implementation; do not assume existing OpenAPI/runtime contracts in this repo."

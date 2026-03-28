@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Orchestration C"
+  short_description: "将来移行の段取りを整理する"
+  default_prompt: "Use $issue-orchestration-c to break a larger testdrive migration into safe phases without assuming the old multi-repo hozen workflow."

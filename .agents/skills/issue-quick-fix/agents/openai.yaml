@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Quick Fix"
+  short_description: "静的 UI / docs の軽微修正を行う"
+  default_prompt: "Use $issue-quick-fix for small, local edits to dashboard.html, docs, or AGENTS.md in the current minimal repo."
